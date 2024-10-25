@@ -4,7 +4,7 @@ export const vertexShader = `
 varying vec3 vWorldPosition;
 varying vec2 vUV;
 
-uniform sampler2D grassNoise;
+uniform sampler2D windNoise;
 uniform float iTime;
 uniform float iPlaneSize;
 
@@ -22,11 +22,11 @@ void main() {
     vWorldPosition = worldPosition.xyz;
     vUV = (worldPosition.xz + iPlaneSize * 0.5) / iPlaneSize;
     
-    vec3 noise = texture2D(grassNoise, vUV / 8.0 + vec2(iTime / 70000.0)).rgb;
+    vec3 noise = texture2D(windNoise, vUV / 4.0 + vec2(iTime / 70000.0)).rgb;
     float mag = 1.0 - noise.r * 2.0;
     float dir = noise.b * 3.14159265359;
     
-    vec3 offset = sphericalTransform(1.73 - 2.0*mag, 1.1 * dir, position.y);
+    vec3 offset = sphericalTransform(1.73 - mag, 1.1 * dir, position.y);
     worldPosition.xyz += offset;
     
     vec4 mvPosition = modelViewMatrix * worldPosition;
@@ -52,9 +52,9 @@ void main() {
 export const PARAMS = {
     PLANE_SIZE: 30,
     BLADE_COUNT: (2<<17) - 1,
-    BLADE_WIDTH: 0.35,
-    BLADE_HEIGHT: 0.8,
-    BLADE_HEIGHT_VARIATION: 1.0
+    BLADE_WIDTH: 0.3,
+    BLADE_HEIGHT: 1.0,
+    BLADE_HEIGHT_VARIATION: 0.8
 };
 
 export function generateInstancedGrass(material) {

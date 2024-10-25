@@ -62,10 +62,13 @@ const grassNoise = new THREE.TextureLoader().load('./src/assets/grass.jpg');
 grassNoise.wrapS = grassNoise.wrapT = THREE.RepeatWrapping;
 const cloudShadow = new THREE.TextureLoader().load('./src/assets/cloud.jpg');
 cloudShadow.wrapS = cloudShadow.wrapT = THREE.RepeatWrapping;
+const windNoise = new THREE.TextureLoader().load('./src/assets/wind.jpg');
+windNoise.wrapS = windNoise.wrapT = THREE.RepeatWrapping;
 
 const grassUniforms = {
     grassNoise: {value: grassNoise},
     cloudShadow: {value: cloudShadow},
+    windNoise: {value: windNoise},
     iTime: { type: 'f', value: 0.0 },
     iPlaneSize: {type: 'f', value: PARAMS.PLANE_SIZE }
 };
